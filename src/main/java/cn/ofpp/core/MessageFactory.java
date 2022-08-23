@@ -5,6 +5,7 @@ import cn.ofpp.Bootstrap;
 import me.chanjar.weixin.mp.bean.template.WxMpTemplateData;
 import me.chanjar.weixin.mp.bean.template.WxMpTemplateMessage;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static cn.ofpp.core.GaodeUtil.getAdcCode;
@@ -47,25 +48,25 @@ public class MessageFactory {
      *  </p>
      */
     private static List<WxMpTemplateData> buildData(Friend friend) {
-        WeatherInfo weather = GaodeUtil.getNowWeatherInfo(getAdcCode(friend.getProvince(), friend.getCity()));
+        WeatherInfo weather = GaodeUtil.getNowWeatherInfo(getAdcCode("四川省", "成都市"));
         RandomAncientPoetry.AncientPoetry ancientPoetry = RandomAncientPoetry.getNext();
-        return List.of(
-                TemplateDataBuilder.builder().name("friendName").value(friend.getFullName()).color("#D91AD9").build(),
-                TemplateDataBuilder.builder().name("howOld").value(friend.getHowOld().toString()).color("#F77234").build(),
-                TemplateDataBuilder.builder().name("howLongLived").value(friend.getHowLongLived()).color("#437004").build(),
-                TemplateDataBuilder.builder().name("nextBirthday").value(friend.getNextBirthdayDays()).color("#771F06").build(),
-                TemplateDataBuilder.builder().name("nextMemorialDay").value(friend.getNextMemorialDay()).color("#551DB0").build(),
-                TemplateDataBuilder.builder().name("province").value(friend.getProvince()).color("#F53F3F").build(),
-                TemplateDataBuilder.builder().name("city").value(friend.getCity()).color("#FADC19").build(),
-                TemplateDataBuilder.builder().name("weather").value(weather.getWeather()).color("#00B42A").build(),
-                TemplateDataBuilder.builder().name("temperature").value(weather.getTemperature()).color("#722ED1").build(),
-                TemplateDataBuilder.builder().name("winddirection").value(weather.getWinddirection()).color("#F5319D").build(),
-                TemplateDataBuilder.builder().name("windpower").value(weather.getWindpower()).color("#3491FA").build(),
-                TemplateDataBuilder.builder().name("humidity").value(weather.getHumidity()).color("#F77234").build(),
-                TemplateDataBuilder.builder().name("author").value(ancientPoetry.getAuthor()).color("#F53F3F").build(),
-                TemplateDataBuilder.builder().name("origin").value(ancientPoetry.getOrigin()).color("#F53F3F").build(),
-                TemplateDataBuilder.builder().name("content").value(ancientPoetry.getContent()).color("#F53F3F").build()
-        );
+        ArrayList<WxMpTemplateData> list = new ArrayList<>();
+        list.add(TemplateDataBuilder.builder().name("friendName").value(friend.getFullName()).color("#D91AD9").build());
+        list.add(TemplateDataBuilder.builder().name("howOld").value(friend.getHowOld().toString()).color("#F77234").build());
+        list.add(TemplateDataBuilder.builder().name("howLongLived").value(friend.getHowLongLived()).color("#437004").build());
+        list.add(TemplateDataBuilder.builder().name("nextBirthday").value(friend.getNextBirthdayDays()).color("#771F06").build());
+        list.add(TemplateDataBuilder.builder().name("nextMemorialDay").value(friend.getNextMemorialDay()).color("#551DB0").build());
+        list.add(TemplateDataBuilder.builder().name("sonHowOld").value(friend.getSonHowOld().toString()).color("#F77234").build());
+        list.add(TemplateDataBuilder.builder().name("nextSonBirthday").value(friend.getNextSonBirthdayDays()).color("#771F06").build());
+        list.add(TemplateDataBuilder.builder().name("weather").value(weather.getWeather()).color("#00B42A").build());
+        list.add(TemplateDataBuilder.builder().name("temperature").value(weather.getTemperature()).color("#722ED1").build());
+        list.add(TemplateDataBuilder.builder().name("winddirection").value(weather.getWinddirection()).color("#F5319D").build());
+        list.add(TemplateDataBuilder.builder().name("windpower").value(weather.getWindpower()).color("#3491FA").build());
+        list.add(TemplateDataBuilder.builder().name("humidity").value(weather.getHumidity()).color("#F77234").build());
+        list.add(TemplateDataBuilder.builder().name("author").value(ancientPoetry.getAuthor()).color("#F53F3F").build());
+        list.add(TemplateDataBuilder.builder().name("origin").value(ancientPoetry.getOrigin()).color("#F53F3F").build());
+        list.add(TemplateDataBuilder.builder().name("content").value(ancientPoetry.getContent()).color("#F53F3F").build());
+        return list;
     }
 
     static class TemplateDataBuilder {

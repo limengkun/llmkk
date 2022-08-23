@@ -46,4 +46,4 @@
 Application.java          // 启动类
 Bootstrap.java            // 一些启动配置(公众号信息在这里配置)
 core/MessageFactory.java  // 创建微信消息对象的代码就在这里面 有需要可以自己修改下变量
-```
+```# lmk

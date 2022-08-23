@@ -5,6 +5,7 @@ import cn.hutool.core.date.DateTime;
 import cn.hutool.core.date.DateUnit;
 import cn.hutool.core.date.DateUtil;
 
+import java.util.Calendar;
 import java.util.Date;
 
 import static cn.hutool.core.date.DateUtil.age;
@@ -19,9 +20,9 @@ public class Friend {
 
     private final Integer howOld;
 
-    private final String province;
+    private final Integer sonHowOld;
 
-    private final String city;
+    private final String sonBirthDay;
 
     private final String userId;
 
@@ -33,15 +34,15 @@ public class Friend {
 
     private final String templateId;
 
-    public Friend(String fullName, String province, String city, String userId, String birthday, String loveTime, String sex) {
-        this(fullName, province, city, userId, birthday, loveTime, sex, null);
+    public Friend(String fullName, String sonBirthDay, String userId, String birthday, String loveTime, String sex) {
+        this(fullName, sonBirthDay, userId, birthday, loveTime, sex, null);
     }
 
-    public Friend(String fullName, String province, String city, String userId, String birthday, String loveTime, String sex, String templateId) {
+    public Friend(String fullName, String sonBirthDay, String userId, String birthday, String loveTime, String sex, String templateId) {
         this.fullName = fullName;
         this.howOld = age(DateUtil.parse(birthday), new Date());
-        this.province = province;
-        this.city = city;
+        this.sonHowOld = differentDays(DateUtil.parse(sonBirthDay), new Date());
+        this.sonBirthDay = sonBirthDay;
         this.userId = userId;
         this.birthday = birthday;
         this.loveTime = loveTime;
@@ -57,12 +58,12 @@ public class Friend {
         return howOld;
     }
 
-    public String getProvince() {
-        return province;
+    public Integer getSonHowOld() {
+        return sonHowOld;
     }
 
-    public String getCity() {
-        return city;
+    public String getSonBirthDay() {
+        return sonBirthDay;
     }
 
     public String getUserId() {
@@ -93,6 +94,10 @@ public class Friend {
         return getNextDay(DateUtil.parse(birthday));
     }
 
+    public String getNextSonBirthdayDays() {
+        return getNextDay(DateUtil.parse(sonBirthDay));
+    }
+
     public String getNextMemorialDay() {
         return getNextDay(DateUtil.parse(loveTime));
     }
@@ -105,6 +110,39 @@ public class Friend {
             return String.valueOf(dateTime.offset(DateField.YEAR, 1).between(now, DateUnit.DAY));
         }
         return String.valueOf(dateTime.between(now, DateUnit.DAY));
+    }
+
+
+    private static int differentDays(Date date1,Date date2) {
+        Calendar cal1 = Calendar.getInstance();
+        cal1.setTime(date1);
+
+        Calendar cal2 = Calendar.getInstance();
+        cal2.setTime(date2);
+        int day1= cal1.get(Calendar.DAY_OF_YEAR);
+        int day2 = cal2.get(Calendar.DAY_OF_YEAR);
+
+        int year1 = cal1.get(Calendar.YEAR);
+        int year2 = cal2.get(Calendar.YEAR);
+        if(year1 != year2) {//同一年
+            int timeDistance = 0 ;
+            for(int i = year1 ; i < year2 ; i ++)
+            {
+                if(i%4==0 && i%100!=0 || i%400==0)    //闰年
+                {
+                    timeDistance += 366;
+                }
+                else    //不是闰年
+                {
+                    timeDistance += 365;
+                }
+            }
+
+            return timeDistance + (day2-day1) ;
+        } else {// 不同年
+            System.out.println("判断day2 - day1 : " + (day2-day1));
+            return day2-day1;
+        }
     }
 
 }
