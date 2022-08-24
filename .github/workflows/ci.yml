@@ -19,4 +19,3 @@ jobs:
         run: mvn -B package --file pom.xml
       - name: SendWxTemplateMsg
         run: sudo java -jar ./target/CareUEveryDay-1.0.0.jar
-
