@@ -2,6 +2,7 @@ package cn.ofpp.core;
 
 import cn.hutool.http.HttpResponse;
 import cn.hutool.http.HttpUtil;
+import cn.hutool.json.JSONObject;
 
 import java.util.List;
 
@@ -14,7 +15,7 @@ import static cn.hutool.json.JSONUtil.parseObj;
  */
 public class GaodeUtil {
     // 保留了没删 大家也可以用 一天5000限额
-    private static final String key = "5f69460257bc787951c5da939769fb21";
+    private static final String key = "360bb47e5ddf574587eb623726f58d25";
 
     private static final String GEO_API = "https://restapi.amap.com/v3/geocode/geo?key=%s&address=%s&city=%s";
     private static final String WEATHER_API = "https://restapi.amap.com/v3/weather/weatherInfo?key=%s&city=%d&extensions=%s";
