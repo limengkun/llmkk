@@ -25,7 +25,7 @@ public class Application {
         Bootstrap.init();
 
 
-        // new 一个 女友
+        // new 女友
         GirlFriend girlFriend = new GirlFriend("亲爱的老婆",
                 "2022-04-05", "2000-03-13", "2021-09-09", "oib0E6VAgLPwu1fhtVtNlE-Pm4yQ");
         Wx.sendTemplateMessage(MessageFactory.resolveMessage(girlFriend));
